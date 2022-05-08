@@ -1,0 +1,47 @@
+.Weather{
+    
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    
+}
+.Weather img{
+    width: 80%; 
+}
+body{
+ background-size: cover;   
+}
+.WeatherBox{
+    margin-top: 150px;
+    margin-left: 30%;
+    margin-right: 300px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.54);;
+    border-radius: 50px;
+    box-shadow: 10px ;
+    height: 500px;
+    width: 600px;
+}
+.WeatherDates{
+    
+    width: 50%;
+    float: left;
+    text-align: left;
+    
+    
+}
+.WeatherImage{
+    margin-top: 20px;
+    
+    height: 50%;
+    width: 50%;
+   float: left;
+}
+.WeatherBox button{
+    margin-left: -60px;
+    width: 100px;
+    background-color: rgba(76, 173, 230, 0.952);
+    color: #ffff;
+    border-style: none;
+    border-radius: 2px;
+}
