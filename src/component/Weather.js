@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axio from "axios"
 import "./Weather.css"
-import NewCity from './NewCity';
 
 const Weather = () => {
 
