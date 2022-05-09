@@ -23,31 +23,45 @@ const Weather = () => {
     
     const [Weatherx, setWeatherx] = useState({})
     const [Weather, setWeather] = useState({})
-    const [signGrades, setSignGrades] = useState("F")
+    const [signGrades, setSignGrades] = useState("K")
     const [grades, setGrades] = useState(0)
     
+    
     const ChangeCity = () => {
-        
         let aux=Weather
         setWeather(Weatherx)
         setWeatherx(aux)  
+        setSignGrades("K")
+        setGrades(Weather.main?.temp.toFixed())
+        
+        
     }
     
     const ChangeSignGrades = () => {
+        if (signGrades === "K") {
+            setSignGrades("F");
+        } 
         if (signGrades === "F") {
             setSignGrades("C");
-        } else {
+        } 
+        if(signGrades === "C") {
             setSignGrades("F");
         }
     }
     const ChangeGrades = () => {
-        const value =(grades===0 ? Weather.main?.temp.toFixed() :grades)
         ChangeSignGrades();
+        let value =grades
+               
+        if (signGrades === "K") {
+            setGrades(((Weather.main?.temp.toFixed() - 273.15) * 9/5 + 32).toFixed())  
+        } 
         if (signGrades === "F") {
-            setGrades(((value - 32) * 5 / 9).toFixed())
-        } else {
-            setGrades(((value * 9 / 5) + 32).toFixed())
+            setGrades(((value - 32) * 5/9).toFixed())  
+        } 
+        if(signGrades === "C") {
+            setGrades(((value * 9/5) + 32 ).toFixed())
         }
+        
     }
     const weathers = {
         sun: "https://image-prod.iol.co.za/16x9/800/File-picture-Pexels?source=https://xlibris.public.prod.oc.inl.infomaker.io:8443/opencontent/objects/f1f4bd7d-378c-5679-989c-b46a925dc779&operation=CROP&offset=0x35&resize=1280x720",
@@ -60,6 +74,7 @@ const Weather = () => {
         , snowy: "https://www.vmcdn.ca/f/files/via/images/weather/vancouver-weather-forecast-december-2021-snowfall.jpg;w=960;h=533;mode=crop"
         , snowyflare: "https://www.vmcdn.ca/f/files/via/images/weather/vancouver-weather-forecast-december-2021-snowfall.jpg;w=960;h=533;mode=crop"
         , fog: "https://ychef.files.bbci.co.uk/976x549/p03j2k8n.jpg"
+        , thunderstorm: "https://media.nationalgeographic.org/assets/photos/000/263/26383.jpg"
     }
 
     const ChangeBackground = () => {
@@ -86,8 +101,8 @@ const Weather = () => {
                     <h2>Weather: {Weather.weather?.[0].main}</h2>
                     <h2>Clouds: {Weather.clouds?.all} %</h2>
                     <h2>Wind Speed: {Weather.wind?.speed} m/s</h2>
-                    <h2>Pressure: {Weather.main?.pressure} mb</h2>                   
-                    <h2>Temp: {grades===0 ? Weather.main?.temp.toFixed() :grades} °{signGrades}</h2>
+                    <h2>Pressure: {Weather.main?.pressure} mb</h2>                  
+                    <h2>Temp: {grades===0? Weather.main?.temp.toFixed():grades} °{signGrades}</h2>
                     <button onClick={ChangeGrades}>Degrees</button>
                 </div>
             </div>
