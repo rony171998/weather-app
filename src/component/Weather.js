@@ -5,6 +5,7 @@ import "./Weather.css"
 const Weather = () => {
 
     useEffect(() => {
+        
         function success(pos) {
             var crd = pos.coords;
             axio.get(`https://api.openweathermap.org/data/2.5/weather?lat=${crd.latitude}&lon=${crd.longitude}&appid=1581b57091b320b7a370afc58058cb59`)
@@ -17,14 +18,16 @@ const Weather = () => {
             
             axio.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lats[ramdonlatlon]}&lon=${lons[ramdonlatlon]}&appid=1581b57091b320b7a370afc58058cb59`)
             .then((res) => setWeatherx(res.data));
+           
         }
         navigator.geolocation.getCurrentPosition(success);
+        
     }, [])
     
     const [Weatherx, setWeatherx] = useState({})
     const [Weather, setWeather] = useState({})
     const [signGrades, setSignGrades] = useState("K")
-    const [grades, setGrades] = useState(0)
+    const [grades, setGrades] = useState(Weather.main?.temp.toFixed())
     
     
     const ChangeCity = () => {
@@ -56,7 +59,8 @@ const Weather = () => {
             setGrades(((Weather.main?.temp.toFixed() - 273.15) * 9/5 + 32).toFixed())  
         } 
         if (signGrades === "F") {
-            setGrades(((value - 32) * 5/9).toFixed())  
+            setGrades(((value - 32) * 5/9).toFixed())
+         
         } 
         if(signGrades === "C") {
             setGrades(((value * 9/5) + 32 ).toFixed())
@@ -102,7 +106,7 @@ const Weather = () => {
                     <h2>Clouds: {Weather.clouds?.all} %</h2>
                     <h2>Wind Speed: {Weather.wind?.speed} m/s</h2>
                     <h2>Pressure: {Weather.main?.pressure} mb</h2>                  
-                    <h2>Temp: {grades===0? Weather.main?.temp.toFixed():grades} °{signGrades}</h2>
+                    <h2>Temp: {grades===undefined ? Weather.main?.temp.toFixed():grades} °{signGrades}</h2>
                     <button onClick={ChangeGrades}>Degrees</button>
                 </div>
             </div>
